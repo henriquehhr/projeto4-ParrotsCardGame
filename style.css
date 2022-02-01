@@ -24,6 +24,8 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     gap: 34px;
+    width: fit-content;
+    margin: 0 auto;
 }
 
 .carta {
@@ -48,11 +50,8 @@ h1 {
     transform-style: preserve-3d;
   }
 
-  .frente {
-      padding: 24px 7px 22px 10px;
-  }
-
   .frente img {
+      margin: 24px 7px 22px 10px;
       width: 100px;
       height: 100px;
   }
