@@ -20,6 +20,17 @@ h1 {
     color: #75B79E;
 }
 
+#relogio {
+    font-family: Roboto, sans-serif;
+    font-size: 30px;
+    width: calc(100% - 30px);
+    text-align: right;
+    color: red;
+    display: block;
+    margin-left: auto;
+    margin-right: 30px;
+}
+
 .container-cartas {
     display: flex;
     flex-wrap: wrap;
