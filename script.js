@@ -30,11 +30,10 @@ function iniciarJogo(){
 
     inicializarPapagaios();
     colocarCartas();
-    /*tempo = 0;
+    tempo = 0;
     relogio.innerText = tempo;
-    clearInterval(intervaloTempo);
-    intervaloTempo = setTimeout(mostrarTempo, 1000);
-    */
+    //clearInterval(intervaloTempo);
+    intervaloTempo = setInterval(mostrarTempo, 1000);
 }
 
 function comparador() { 
@@ -113,7 +112,6 @@ function colocarCartas(){
 function mostrarTempo(){
     tempo++;
     relogio.innerText = tempo;
-    setTimeout(mostrarTempo, 1000);
 }
 
 function clicarCarta(cartaClicada){
@@ -130,13 +128,8 @@ function clicarCarta(cartaClicada){
             cartaClicada.setAttribute("onclick", "");
             cartasFaltantes-=2;
             if(cartasFaltantes === 0){
-                alert(`Você ganhou em ${numeroDeJogadas} jogadas em ${tempo} segundos`);
-                if(prompt("Deseja jogar novamente: sim ou não?").toLowerCase() === "sim") {
-                    iniciarJogo();
-                }
-                else {
-                    clearInterval(intervaloTempo);
-                }
+                clearInterval(intervaloTempo);
+                setTimeout(terminarJogo, 500, numeroDeJogadas, tempo);
             }
         }
         primeiraCartaClicada = null;
@@ -146,6 +139,13 @@ function clicarCarta(cartaClicada){
 function desvirarCartas(primeiraCartaClicada , cartaClicada){
     cartaClicada.classList.remove("carta-clicada");
     primeiraCartaClicada.classList.remove("carta-clicada");
+}
+
+function terminarJogo(numeroDeJogadas, tempo){
+    alert(`Você ganhou em ${numeroDeJogadas} jogadas e em ${tempo} segundos`);
+    if(prompt("Deseja jogar novamente: s ou n?").toLowerCase() === "s") {
+        iniciarJogo();
+    }
 }
 
 iniciarJogo();
