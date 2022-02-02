@@ -60,10 +60,10 @@ h1 {
     transform: rotateY(180deg);
   }
 
-  .carta:hover .verso {
+  .carta-clicada .verso {
     transform: rotateY(0deg);
   }
 
-  .carta:hover .frente {
+  .carta-clicada .frente {
     transform: rotateY(-180deg);
   }
