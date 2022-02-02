@@ -8,7 +8,13 @@ let numeroDeJogadas;
 
 let cartasFaltantes;
 
+let tempo;
+
+let intervaloTempo;
+
 const containerCartas = document.querySelector(".container-cartas");
+
+const relogio = document.querySelector("#relogio");
 
 function iniciarJogo(){
     papagaios = [];
@@ -24,6 +30,11 @@ function iniciarJogo(){
 
     inicializarPapagaios();
     colocarCartas();
+    /*tempo = 0;
+    relogio.innerText = tempo;
+    clearInterval(intervaloTempo);
+    intervaloTempo = setTimeout(mostrarTempo, 1000);
+    */
 }
 
 function comparador() { 
@@ -99,6 +110,12 @@ function colocarCartas(){
     cartasFaltantes = numeroCartas;
 }
 
+function mostrarTempo(){
+    tempo++;
+    relogio.innerText = tempo;
+    setTimeout(mostrarTempo, 1000);
+}
+
 function clicarCarta(cartaClicada){
     numeroDeJogadas++;
     cartaClicada.classList.toggle("carta-clicada");
@@ -106,22 +123,29 @@ function clicarCarta(cartaClicada){
         primeiraCartaClicada = cartaClicada;
     } else {
         if (primeiraCartaClicada.querySelector(".verso img").getAttribute("src") != cartaClicada.querySelector(".verso img").getAttribute("src")){
-            primeiraCartaClicada.classList.remove("carta-clicada");
-            cartaClicada.classList.remove("carta-clicada");
+            setTimeout(desvirarCartas, 1000, primeiraCartaClicada, cartaClicada);
         }
         else {
             primeiraCartaClicada.setAttribute("onclick", "");
             cartaClicada.setAttribute("onclick", "");
             cartasFaltantes-=2;
             if(cartasFaltantes === 0){
-                alert(`Você ganhou em ${numeroDeJogadas} jogadas`);
+                alert(`Você ganhou em ${numeroDeJogadas} jogadas em ${tempo} segundos`);
                 if(prompt("Deseja jogar novamente: sim ou não?").toLowerCase() === "sim") {
                     iniciarJogo();
+                }
+                else {
+                    clearInterval(intervaloTempo);
                 }
             }
         }
         primeiraCartaClicada = null;
     }
+}
+
+function desvirarCartas(primeiraCartaClicada , cartaClicada){
+    cartaClicada.classList.remove("carta-clicada");
+    primeiraCartaClicada.classList.remove("carta-clicada");
 }
 
 iniciarJogo();
