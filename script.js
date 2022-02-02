@@ -1,15 +1,30 @@
 let numeroCartas;
-do {
-    numeroCartas = parseInt(prompt("Com quantas cartas deseja jogar (somente números pares de 4 a 14)?"));
-} while(numeroCartas < 4 || numeroCartas > 14 || numeroCartas % 2 != 0);
 
-let papagaios = [];
+let papagaios;
 
-let primeiraCartaClicada = null;
+let primeiraCartaClicada;
 
-let numeroDeJogadas = 0;
+let numeroDeJogadas;
 
 let cartasFaltantes;
+
+const containerCartas = document.querySelector(".container-cartas");
+
+function iniciarJogo(){
+    papagaios = [];
+    primeiraCartaClicada = null
+    numeroDeJogadas = 0;
+    do {
+        numeroCartas = parseInt(prompt("Com quantas cartas deseja jogar (somente números pares de 4 a 14)?"));
+    } while(numeroCartas < 4 || numeroCartas > 14 || numeroCartas % 2 != 0);
+
+    while (containerCartas.firstChild) {
+        containerCartas.removeChild(containerCartas.lastChild);
+    }
+
+    inicializarPapagaios();
+    colocarCartas();
+}
 
 function comparador() { 
 	return Math.random() - 0.5; 
@@ -41,7 +56,6 @@ function inicializarPapagaios(){
 }
 
 function colocarCartas(){
-    const containerCartas = document.querySelector(".container-cartas");
     let cartas = [];
     for(let i = 0; i < numeroCartas/2; i++){
         let clonePapagaio = papagaios[i].cloneNode(false);
@@ -101,11 +115,13 @@ function clicarCarta(cartaClicada){
             cartasFaltantes-=2;
             if(cartasFaltantes === 0){
                 alert(`Você ganhou em ${numeroDeJogadas} jogadas`);
+                if(prompt("Deseja jogar novamente: sim ou não?").toLowerCase() === "sim") {
+                    iniciarJogo();
+                }
             }
         }
         primeiraCartaClicada = null;
     }
 }
 
-inicializarPapagaios();
-colocarCartas();
+iniciarJogo();
