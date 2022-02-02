@@ -115,25 +115,27 @@ function mostrarTempo(){
 }
 
 function clicarCarta(cartaClicada){
-    numeroDeJogadas++;
-    cartaClicada.classList.toggle("carta-clicada");
-    if(primeiraCartaClicada === null){
-        primeiraCartaClicada = cartaClicada;
-    } else {
-        if (primeiraCartaClicada.querySelector(".verso img").getAttribute("src") != cartaClicada.querySelector(".verso img").getAttribute("src")){
-            setTimeout(desvirarCartas, 1000, primeiraCartaClicada, cartaClicada);
-        }
-        else {
+        numeroDeJogadas++;
+        cartaClicada.classList.toggle("carta-clicada");
+        if(primeiraCartaClicada === null){
+            primeiraCartaClicada = cartaClicada;
             primeiraCartaClicada.setAttribute("onclick", "");
-            cartaClicada.setAttribute("onclick", "");
-            cartasFaltantes-=2;
-            if(cartasFaltantes === 0){
-                clearInterval(intervaloTempo);
-                setTimeout(terminarJogo, 500, numeroDeJogadas, tempo);
+        } else {
+            if (primeiraCartaClicada.querySelector(".verso img").getAttribute("src") != cartaClicada.querySelector(".verso img").getAttribute("src")){
+                setTimeout(desvirarCartas, 1000, primeiraCartaClicada, cartaClicada);
+                primeiraCartaClicada.setAttribute("onclick", "clicarCarta(this)");
             }
+            else {
+                primeiraCartaClicada.setAttribute("onclick", "");
+                cartaClicada.setAttribute("onclick", "");
+                cartasFaltantes-=2;
+                if(cartasFaltantes === 0){
+                    clearInterval(intervaloTempo);
+                    setTimeout(terminarJogo, 500, numeroDeJogadas, tempo);
+                }
+            }
+            primeiraCartaClicada = null;
         }
-        primeiraCartaClicada = null;
-    }
 }
 
 function desvirarCartas(primeiraCartaClicada , cartaClicada){
