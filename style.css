@@ -13,6 +13,7 @@ header {
 
 h1 {
     font-family: Roboto, sans-serif;
+    text-align: center;
     font-weight: bold;
     font-size: 56px;
     line-height: 66px;
@@ -33,10 +34,11 @@ h1 {
 
 .container-cartas {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 34px;
-    width: fit-content;
     margin: 0 auto;
+    padding: 0 116px;
 }
 
 .carta {

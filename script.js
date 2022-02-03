@@ -72,10 +72,13 @@ function colocarCartas(){
         
         let divVerso = document.createElement("div");
         divVerso.classList.add("verso", "face");
+        divVerso.setAttribute("data-identifier", "back-face");
         let divFrente = document.createElement("div");
         divFrente.classList.add("frente", "face");
+        divFrente.setAttribute("data-identifier", "front-face");
         let divCarta = document.createElement("div");
         divCarta.classList.add("carta");
+        divCarta.setAttribute("data-identifier", "card");
         let imgFrente = document.createElement("img");
         imgFrente.setAttribute("src", "../images/front.png");
         divFrente.append(imgFrente);
@@ -85,10 +88,13 @@ function colocarCartas(){
 
         let divVerso2 = document.createElement("div");
         divVerso2.classList.add("verso", "face");
+        divVerso2.setAttribute("data-identifier", "back-face");
         let divFrente2 = document.createElement("div");
         divFrente2.classList.add("frente", "face");
+        divFrente.setAttribute("data-identifier", "front-face");
         let divCarta2 = document.createElement("div");
         divCarta2.classList.add("carta");
+        divCarta.setAttribute("data-identifier", "card");
         imgFrente = document.createElement("img");
         imgFrente.setAttribute("src", "../images/front.png");
         divFrente2.append(imgFrente);
