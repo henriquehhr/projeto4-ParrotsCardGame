@@ -7,7 +7,7 @@ body {
 }
 
 header {
-    margin: 40px auto 17px auto;
+    margin: 40px auto 17px auto; /* 40px auto 17px (47px - tamanho do relógio) auto */
     width: fit-content;
 }
 
