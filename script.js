@@ -12,57 +12,58 @@ let tempo;
 
 let intervaloTempo;
 
+let numeroCartasClicadas;
+
 const containerCartas = document.querySelector(".container-cartas");
 
 const relogio = document.querySelector("#relogio");
 
 function iniciarJogo(){
-    papagaios = [];
-    primeiraCartaClicada = null
+    primeiraCartaClicada = null;
     numeroDeJogadas = 0;
-    do {
-        numeroCartas = parseInt(prompt("Com quantas cartas deseja jogar (somente números pares de 4 a 14)?"));
-    } while(numeroCartas < 4 || numeroCartas > 14 || numeroCartas % 2 != 0);
-
+    tempo = 0;
+    numeroCartasClicadas = 0;
     while (containerCartas.firstChild) {
         containerCartas.removeChild(containerCartas.lastChild);
     }
 
-    inicializarPapagaios();
+    do {
+        numeroCartas = parseInt(prompt("Com quantas cartas deseja jogar (somente números pares de 4 a 14)?"));
+    } while(numeroCartas < 4 || numeroCartas > 14 || numeroCartas % 2 != 0);
+
+    papagaios.sort(randomizar);
     colocarCartas();
-    tempo = 0;
     relogio.innerText = tempo;
-    //clearInterval(intervaloTempo);
     intervaloTempo = setInterval(mostrarTempo, 1000);
 }
 
-function comparador() { 
+function randomizar() { 
 	return Math.random() - 0.5; 
 }
 
 function inicializarPapagaios(){
     let papagaio = document.createElement("img");
-    papagaio.setAttribute("src", "../images/bobrossparrot.gif")
+    papagaios = [];
+    papagaio.setAttribute("src", "images/bobrossparrot.gif")
     papagaios.push(papagaio);
     papagaio = document.createElement("img");
-    papagaio.setAttribute("src", "../images/explodyparrot.gif")
+    papagaio.setAttribute("src", "images/explodyparrot.gif")
     papagaios.push(papagaio);
     papagaio = document.createElement("img");
-    papagaio.setAttribute("src", "../images/fiestaparrot.gif")
+    papagaio.setAttribute("src", "images/fiestaparrot.gif")
     papagaios.push(papagaio);
     papagaio = document.createElement("img");
-    papagaio.setAttribute("src", "../images/metalparrot.gif")
+    papagaio.setAttribute("src", "images/metalparrot.gif")
     papagaios.push(papagaio);
     papagaio = document.createElement("img");
-    papagaio.setAttribute("src", "../images/revertitparrot.gif")
+    papagaio.setAttribute("src", "images/revertitparrot.gif")
     papagaios.push(papagaio);
     papagaio = document.createElement("img");
-    papagaio.setAttribute("src", "../images/tripletsparrot.gif")
+    papagaio.setAttribute("src", "images/tripletsparrot.gif")
     papagaios.push(papagaio);
     papagaio = document.createElement("img");
-    papagaio.setAttribute("src", "../images/unicornparrot.gif")
+    papagaio.setAttribute("src", "images/unicornparrot.gif")
     papagaios.push(papagaio);
-    papagaios.sort(comparador);
 }
 
 function colocarCartas(){
@@ -80,7 +81,7 @@ function colocarCartas(){
         divCarta.classList.add("carta");
         divCarta.setAttribute("data-identifier", "card");
         let imgFrente = document.createElement("img");
-        imgFrente.setAttribute("src", "../images/front.png");
+        imgFrente.setAttribute("src", "images/front.png");
         divFrente.append(imgFrente);
         divVerso.append(papagaios[i]);
         divCarta.append(divFrente, divVerso);
@@ -96,7 +97,7 @@ function colocarCartas(){
         divCarta2.classList.add("carta");
         divCarta.setAttribute("data-identifier", "card");
         imgFrente = document.createElement("img");
-        imgFrente.setAttribute("src", "../images/front.png");
+        imgFrente.setAttribute("src", "images/front.png");
         divFrente2.append(imgFrente);
         divVerso2.append(clonePapagaio);
         divCarta2.append(divFrente2, divVerso2);
@@ -106,7 +107,7 @@ function colocarCartas(){
         cartas.push(divCarta2);
     }
     
-    cartas.sort(comparador);
+    cartas.sort(randomizar);
 
     for(let i = 0; i < numeroCartas; i++){
         containerCartas.append(cartas[i]);
@@ -121,6 +122,11 @@ function mostrarTempo(){
 }
 
 function clicarCarta(cartaClicada){
+        
+        if(numeroCartasClicadas === 2){
+            return;
+        }
+        numeroCartasClicadas++;
         numeroDeJogadas++;
         cartaClicada.classList.toggle("carta-clicada");
         if(primeiraCartaClicada === null){
@@ -135,6 +141,7 @@ function clicarCarta(cartaClicada){
                 primeiraCartaClicada.setAttribute("onclick", "");
                 cartaClicada.setAttribute("onclick", "");
                 cartasFaltantes-=2;
+                numeroCartasClicadas = 0;
                 if(cartasFaltantes === 0){
                     clearInterval(intervaloTempo);
                     setTimeout(terminarJogo, 500, numeroDeJogadas, tempo);
@@ -147,6 +154,7 @@ function clicarCarta(cartaClicada){
 function desvirarCartas(primeiraCartaClicada , cartaClicada){
     cartaClicada.classList.remove("carta-clicada");
     primeiraCartaClicada.classList.remove("carta-clicada");
+    numeroCartasClicadas = 0;
 }
 
 function terminarJogo(numeroDeJogadas, tempo){
@@ -155,5 +163,7 @@ function terminarJogo(numeroDeJogadas, tempo){
         iniciarJogo();
     }
 }
+
+inicializarPapagaios();
 
 iniciarJogo();

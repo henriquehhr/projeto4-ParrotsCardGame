@@ -37,7 +37,7 @@ h1 {
     justify-content: center;
     flex-wrap: wrap;
     gap: 34px;
-    margin: 0 auto;
+    margin: 0 auto 34px auto;
     padding: 0 116px;
 }
 
